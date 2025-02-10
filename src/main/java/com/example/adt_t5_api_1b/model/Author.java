@@ -1,11 +1,12 @@
 package com.example.adt_t5_api_1b.model;
 
 import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "authors")
+@Table (name = "authors")
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,14 +14,13 @@ public class Author {
 
     private String name;
 
-    private String imagePath;
+    private String imagePath; // Ruta de la imagen en el servidor
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Book> books = new ArrayList<>();
 
     @Column(name = "birth_year")
     private int birthYear;
-
-    // orphanRemoval: si eliminamos un autor, se eliminan sus libros.
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Book> books = new ArrayList<>();
 
     public Author() {
     }
@@ -28,6 +28,14 @@ public class Author {
     public Author(String name, int birthYear) {
         this.name = name;
         this.birthYear = birthYear;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public Long getId() {
@@ -54,21 +62,12 @@ public class Author {
         this.birthYear = birthYear;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
     @Override
     public String toString() {
         return "Author{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", birthYear=" + birthYear +
-                ", books=" + books +
                 '}';
     }
 }

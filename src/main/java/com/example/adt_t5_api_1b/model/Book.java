@@ -12,7 +12,7 @@ public class Book {
     private String title;
 
     @Column(name = "year_published")
-    private int yearPublished;
+    private int publishedYear;
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false) // Clave foránea en la tabla de libros
@@ -21,9 +21,9 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, int yearPublished, Author author) {
+    public Book(String title, int publishedYear, Author author) {
         this.title = title;
-        this.yearPublished = yearPublished;
+        this.publishedYear = publishedYear;
         this.author = author;
     }
 
@@ -43,12 +43,12 @@ public class Book {
         this.title = title;
     }
 
-    public int getYearPublished() {
-        return yearPublished;
+    public int getPublishedYear() {
+        return publishedYear;
     }
 
-    public void setYearPublished(int yearPublished) {
-        this.yearPublished = yearPublished;
+    public void setPublishedYear(int publishedYear) {
+        this.publishedYear = publishedYear;
     }
 
     public Author getAuthor() {
@@ -64,7 +64,7 @@ public class Book {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", yearPublished=" + yearPublished +
+                ", yearPublished=" + publishedYear +
                 ", author=" + author +
                 '}';
     }
